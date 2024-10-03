@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '@/Components/ui/card'
 </script>
 
 <template>
+
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <Link href="/">
@@ -11,10 +20,12 @@ import { Link } from '@inertiajs/vue3';
             </Link>
         </div>
 
-        <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg"
-        >
+        <Card class="w-full sm:max-w-md mt-6 px-6 py-4 overflow-hidden sm:rounded-lg">
+            <CardHeader class="flex items-center">
+                <CardTitle>Peer Banking</CardTitle>
+                <CardDescription>Extra cash with friends and family.</CardDescription>
+            </CardHeader>
             <slot />
-        </div>
+        </Card>
     </div>
 </template>

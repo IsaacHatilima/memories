@@ -1,38 +1,53 @@
 <script setup lang="ts">
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import { Label } from '@/Components/ui/label'
+import { useForm } from 'laravel-precognition-vue-inertia';
 import { ref } from 'vue';
+import { useToast } from '@/Components/ui/toast/use-toast'
+
+const { toast } = useToast();
 
 const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
 
+/*
 const form = useForm({
     current_password: '',
     password: '',
     password_confirmation: '',
 });
+*/
 
-const updatePassword = () => {
-    form.put(route('password.update'), {
-        preserveScroll: true,
-        onSuccess: () => {
-            form.reset();
-        },
-        onError: () => {
-            if (form.errors.password) {
-                form.reset('password', 'password_confirmation');
-                passwordInput.value?.focus();
-            }
-            if (form.errors.current_password) {
-                form.reset('current_password');
-                currentPasswordInput.value?.focus();
-            }
-        },
-    });
-};
+const form = useForm('put', route('password.update'), {
+    current_password: '',
+    password: '',
+    password_confirmation: '',
+});
+
+const submit = () => form.submit({
+    preserveScroll: true,
+    onSuccess: () => {
+        toast({
+            title: 'Password Updated',
+            description: 'Your password has been successfully updated.',
+            variant: 'success',
+        });
+        form.reset();
+    },
+    onError: () => {
+        if (form.errors.password) {
+            form.reset('password', 'password_confirmation');
+            passwordInput.value?.focus();
+        }
+        if (form.errors.current_password) {
+            form.reset('current_password');
+            // currentPasswordInput.value?.focus();
+        }
+    },
+});
+
 </script>
 
 <template>
@@ -45,16 +60,17 @@ const updatePassword = () => {
             </p>
         </header>
 
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form @submit.prevent="submit" class="mt-6 space-y-6">
             <div>
-                <InputLabel for="current_password" value="Current Password" />
+                <Label for="current_password">Current Password</Label>
 
-                <TextInput
+                <Input
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
                     class="mt-1 block w-full"
+                    :class="{ 'border-red-500': form.errors.current_password }"
                     autocomplete="current-password"
                 />
 
@@ -62,45 +78,39 @@ const updatePassword = () => {
             </div>
 
             <div>
-                <InputLabel for="password" value="New Password" />
+                <Label for="password">New Password</Label>
 
-                <TextInput
+                <Input
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
                     class="mt-1 block w-full"
+                    :class="{ 'border-red-500': form.errors.password }"
                     autocomplete="new-password"
+                    @input="form.validate('password')"
                 />
-
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
             <div>
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <Label for="password_confirmation">Confirm Password</Label>
 
-                <TextInput
+                <Input
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
                     class="mt-1 block w-full"
+                    :class="{ 'border-red-500': form.errors.password_confirmation }"
                     autocomplete="new-password"
+                    @input="form.validate('password_confirmation')"
                 />
 
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
-                </Transition>
+            <div class="flex items-center justify-end gap-4">
+                <Button :disabled="form.processing" class="w-40">Save</Button>
             </div>
         </form>
     </section>

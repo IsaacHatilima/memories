@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ConfirmPasswordRequest;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Services\ProfileService;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    protected ProfileService $profileService;
+
+    public function __construct(ProfileService $profileService)
+    {
+        $this->profileService = $profileService;
+    }
+
     /**
      * Display the user's profile form.
      */
@@ -29,34 +37,34 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
+        $this->profileService->updateProfile($request);
         return Redirect::route('profile.edit');
+    }
+
+    /**
+     * Toggle Recover Codes copied
+     */
+    public function copy_recovery_codes(Request $request)
+    {
+        $this->profileService->copyRecoveryCodes($request);
+        return response(null, 200);
+    }
+
+    /**
+     * Cancel Two-Factor Authentication setup process
+     */
+    public function clear_two_factor_confirmed_at(Request $request)
+    {
+        $this->profileService->cancelTwoFactorAuthentication($request);
+        return response(null, 200);
     }
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(ConfirmPasswordRequest $request): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        $this->profileService->deleteAccount($request);
 
         return Redirect::to('/');
     }

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import {CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/Components/ui/card";
+import { Label } from '@/Components/ui/label'
 import { Head, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -23,19 +24,20 @@ const submit = () => {
     <GuestLayout>
         <Head title="Confirm Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            This is a secure area of the application. Please confirm your password before continuing.
-        </div>
+        <CardContent>
+            <div class="mb-4 text-sm text-gray-600">
+                This is a secure area of the application. Please confirm your password before continuing.
+            </div>
 
-        <form @submit.prevent="submit">
+            <form @submit.prevent="submit">
             <div>
-                <InputLabel for="password" value="Password" />
-                <TextInput
+                <Label for="password" value="Password" />
+                <Input
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
                     v-model="form.password"
-                    required
+                    :class="{ 'border-red-500': form.errors.password }"
                     autocomplete="current-password"
                     autofocus
                 />
@@ -43,10 +45,11 @@ const submit = () => {
             </div>
 
             <div class="flex justify-end mt-4">
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <Button class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Confirm
-                </PrimaryButton>
+                </Button>
             </div>
         </form>
+        </CardContent>
     </GuestLayout>
 </template>

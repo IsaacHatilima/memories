@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import {CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/Components/ui/card";
+import { Label } from '@/Components/ui/label'
 import { Head, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{
@@ -31,16 +32,17 @@ const submit = () => {
     <GuestLayout>
         <Head title="Reset Password" />
 
-        <form @submit.prevent="submit">
+        <CardContent>
+            <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <Label for="email" value="Email" />
 
-                <TextInput
+                <Input
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
                     v-model="form.email"
-                    required
+                    :class="{ 'border-red-500': form.errors.email }"
                     autofocus
                     autocomplete="username"
                 />
@@ -49,14 +51,14 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <Label for="password" value="Password" />
 
-                <TextInput
+                <Input
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
                     v-model="form.password"
-                    required
+                    :class="{ 'border-red-500': form.errors.password }"
                     autocomplete="new-password"
                 />
 
@@ -64,14 +66,14 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
+                <Label for="password_confirmation" value="Confirm Password" />
 
-                <TextInput
+                <Input
                     id="password_confirmation"
                     type="password"
                     class="mt-1 block w-full"
                     v-model="form.password_confirmation"
-                    required
+                    :class="{ 'border-red-500': form.errors.password_confirmation }"
                     autocomplete="new-password"
                 />
 
@@ -79,10 +81,11 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <Button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Reset Password
-                </PrimaryButton>
+                </Button>
             </div>
         </form>
+        </CardContent>
     </GuestLayout>
 </template>

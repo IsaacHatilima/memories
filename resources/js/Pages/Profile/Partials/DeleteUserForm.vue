@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import DangerButton from '@/Components/DangerButton.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import Modal from '@/Components/Modal.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+
+
+import { Button } from '@/Components/ui/button'
+import { Input } from '@/Components/ui/input'
+import {CardContent} from "@/Components/ui/card";
+import { Label } from '@/Components/ui/label'
 import { useForm } from '@inertiajs/vue3';
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
+import InputError from "@/Components/InputError.vue";
 
 const confirmingUserDeletion = ref(false);
-const passwordInput = ref<HTMLInputElement | null>(null);
 
 const form = useForm({
     password: '',
@@ -17,15 +18,12 @@ const form = useForm({
 
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true;
-
-    nextTick(() => passwordInput.value?.focus());
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value?.focus(),
         onFinish: () => {
             form.reset();
         },
@@ -41,7 +39,7 @@ const closeModal = () => {
 </script>
 
 <template>
-    <section class="space-y-6">
+    <section>
         <header>
             <h2 class="text-lg font-medium text-gray-900">Delete Account</h2>
 
@@ -50,8 +48,10 @@ const closeModal = () => {
                 your account, please download any data or information that you wish to retain.
             </p>
         </header>
+        <div class="flex justify-end mt-4">
+            <Button variant="destructive" @click="confirmUserDeletion" class="w-40">Delete Account</Button>
+        </div>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
@@ -65,14 +65,14 @@ const closeModal = () => {
                 </p>
 
                 <div class="mt-6">
-                    <InputLabel for="password" value="Password" class="sr-only" />
+                    <Label for="password" value="Password" class="sr-only" />
 
-                    <TextInput
+                    <Input
                         id="password"
-                        ref="passwordInput"
                         v-model="form.password"
                         type="password"
-                        class="mt-1 block w-3/4"
+                        class="mt-1 block w-full"
+                        :class="{ 'border-red-500': form.errors.password }"
                         placeholder="Password"
                         @keyup.enter="deleteUser"
                     />
@@ -81,16 +81,17 @@ const closeModal = () => {
                 </div>
 
                 <div class="mt-6 flex justify-end">
-                    <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+                    <Button @click="closeModal"> Cancel </Button>
 
-                    <DangerButton
-                        class="ms-3"
+                    <Button
+                        variant="destructive"
+                        class="ms-3 bg-red-500"
                         :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
                         Delete Account
-                    </DangerButton>
+                    </Button>
                 </div>
             </div>
         </Modal>
