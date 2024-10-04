@@ -2,7 +2,7 @@
 
 ## Laravel + Vue Starter project
 
-This starter project is made with Laravel Inertia with Vue.js. 
+This starter project is made using Laravel Breeze with Vue.js, the two work together through Inertia. 
 
 - [Laravel](https://laravel.com).
 - [Inertia](https://inertiajs.com/).
