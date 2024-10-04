@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\defer;
+use function Illuminate\Support\defer;
 
 class EmailVerificationNotificationController extends Controller
 {
@@ -18,7 +18,7 @@ class EmailVerificationNotificationController extends Controller
             return redirect()->intended(route('dashboard', absolute: false));
         }
 
-        defer(fn () =>$request->user()->sendEmailVerificationNotification());
+        defer(fn () => $request->user()->sendEmailVerificationNotification());
 
         return back()->with('status', 'verification-link-sent');
     }

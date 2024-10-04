@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
+use function Illuminate\Support\defer;
 
 class VerifyEmailController extends Controller
 {
@@ -19,7 +20,7 @@ class VerifyEmailController extends Controller
         }
 
         if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+            defer(fn () => event(new Verified($request->user())));
         }
 
         return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
