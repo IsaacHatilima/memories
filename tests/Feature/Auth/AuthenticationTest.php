@@ -3,17 +3,18 @@
 use App\Models\User;
 
 test('login screen can be rendered', function () {
-    $response = $this->get('/login');
+    $response = $this->get('/');
 
     $response->assertStatus(200);
 });
 
 test('users can authenticate using the login screen', function () {
+    //Login POST request goes to the Fortify Provider Class.
     $user = User::factory()->create();
 
     $response = $this->post('/login', [
         'email' => $user->email,
-        'password' => 'password',
+        'password' => 'Password1#',
     ]);
 
     $this->assertAuthenticated();
@@ -23,7 +24,7 @@ test('users can authenticate using the login screen', function () {
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
-    $this->post('/login', [
+    $this->post('/', [
         'email' => $user->email,
         'password' => 'wrong-password',
     ]);

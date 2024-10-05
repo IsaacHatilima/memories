@@ -14,11 +14,11 @@ class ProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'public_id' => $this->faker->words(),
+            'public_id' => $this->faker->unique()->uuid(),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'date_of_birth' => Carbon::now(),
-            'gender' => $this->faker->word(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
