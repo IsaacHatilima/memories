@@ -35,5 +35,42 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        /**
+         * To override Fortify authentication
+         */
+//        Fortify::authenticateUsing(function (Request $request) {
+//
+//            $request->validate([
+//                Fortify::username() => 'required|string',
+//                'password' => 'required|string',
+//            ]);
+//
+//            // Retrieve the user by the username (email or username)
+//            $user = User::where(Fortify::username(), $request->input(Fortify::username()))->first();
+//
+//            // Check if user is valid
+//            if (!$user) {
+//                throw ValidationException::withMessages([
+//                    'msg' => 'Invalid E-mail or Password provided',
+//                ]);
+//            }
+//
+//            // Make more check like is account is active etc
+//
+//            // Check the password
+//            if (Hash::check($request->input('password'), $user->password)) {
+//                // Make changes like last_login if it is part of the User model
+//                $user->last_login = now();
+//                $user->save();
+//
+//                return $user;
+//            } else {
+//                // Some action is invalid password
+//                throw ValidationException::withMessages([
+//                    'msg' => 'Invalid E-mail or Password provided',
+//                ]);
+//            }
+//        });
     }
 }
