@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: shivammathur/setup-php@latest # or a specific version that supports Node.js 20
+      - uses: shivammathur/setup-php@v15 # or a specific version that supports Node.js 20
         with:
           php-version: '8.2'
       - uses: actions/checkout@v4
