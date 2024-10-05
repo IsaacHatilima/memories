@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Traits\ModelHelpers;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -36,6 +35,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
+    protected $with = ['profile'];
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -48,11 +53,5 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    protected $with = ['profile'];
-    public function profile(): HasOne
-    {
-        return $this->hasOne(Profile::class);
     }
 }

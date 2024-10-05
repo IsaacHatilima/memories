@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,7 +14,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/download-recovery-codes', [ProfileController::class, 'copy_recovery_codes'])->name('recovery.codes');
-    Route::patch('/clear-two-factor-confirmed-at', [ProfileController::class, 'clear_two_factor_confirmed_at'])->name('clear.2fa.confirmation');
+    Route::patch('/clear-two-factor-confirmed-at',
+        [ProfileController::class, 'clear_two_factor_confirmed_at'])->name('clear.2fa.confirmation');
 });
 
 require __DIR__.'/auth.php';
