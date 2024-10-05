@@ -4,10 +4,11 @@ export interface User {
     id: number;
     name: string;
     email: string;
+    downloaded_code: boolean;
     email_verified_at?: string;
     two_factor_secret?: string;
     two_factor_confirmed_at?: string;
-    profile?: Profile;
+    profile: Profile;
 }
 
 export interface Profile {

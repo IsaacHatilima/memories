@@ -10,7 +10,7 @@ import {Inertia} from '@inertiajs/inertia';
 const {toast} = useToast();
 const user = usePage().props.auth.user;
 const qrCode = ref<string | null>(null);
-const recoveryCodes = ref<string | null>(null);
+const recoveryCodes = ref<string[]>([]);
 const otp = ref<string[]>([])
 const loading = ref(false);
 //const handleComplete = (e: string[]) => alert(e.join(''))
@@ -148,7 +148,7 @@ function toggleRecoveryCodesDownload() {
 }
 
 // Download Recovery Codes
-function downloadFile(recoveryCodes) {
+function downloadFile(recoveryCodes: string[]) {
     // Create the content for the file using the existing recoveryCodes
     const content = recoveryCodes.join('\n');
 

@@ -1,13 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import InputError from '@/Components/InputError.vue';
-import { Button } from '@/Components/ui/button'
-import { Input } from '@/Components/ui/input'
-import { useToast } from '@/Components/ui/toast/use-toast'
-import { Label } from '@/components/ui/label'
+import {Button} from '@/Components/ui/button'
+import {Input} from '@/Components/ui/input'
+import {useToast} from '@/Components/ui/toast/use-toast'
+import {Label} from '@/Components/ui/label'
 import {Link, router, useForm, usePage} from '@inertiajs/vue3';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {RadioGroup, RadioGroupItem} from '@/Components/ui/radio-group';
 
-const { toast } = useToast();
+const {toast} = useToast();
 
 defineProps<{
     mustVerifyEmail?: Boolean;
@@ -24,8 +24,7 @@ const form = useForm({
     email: user.email,
 });
 
-function refreshUser()
-{
+function refreshUser() {
     router.get(route('profile.edit'), {}, {
         preserveScroll: true,
     });
@@ -47,7 +46,7 @@ function submitForm() {
 
 <template>
     <div class="w-full">
-        <section >
+        <section>
             <header>
                 <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
 
@@ -56,21 +55,21 @@ function submitForm() {
                 </p>
             </header>
 
-            <form @submit.prevent="submitForm" class="mt-6 space-y-6">
+            <form class="mt-6 space-y-6" @submit.prevent="submitForm">
                 <div>
                     <Label for="first_name">First Name</Label>
 
                     <Input
                         id="first_name"
-                        type="text"
-                        class="mt-1 block w-full"
                         v-model="form.first_name"
                         :class="{ 'border-red-500': form.errors.first_name }"
-                        autofocus
                         autocomplete="first_name"
+                        autofocus
+                        class="mt-1 block w-full"
+                        type="text"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.first_name" />
+                    <InputError :message="form.errors.first_name" class="mt-2"/>
                 </div>
 
                 <div>
@@ -78,15 +77,15 @@ function submitForm() {
 
                     <Input
                         id="last_name"
-                        type="text"
-                        class="mt-1 block w-full"
                         v-model="form.last_name"
                         :class="{ 'border-red-500': form.errors.last_name }"
-                        autofocus
                         autocomplete="name"
+                        autofocus
+                        class="mt-1 block w-full"
+                        type="text"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.last_name" />
+                    <InputError :message="form.errors.last_name" class="mt-2"/>
                 </div>
 
                 <div>
@@ -94,14 +93,14 @@ function submitForm() {
 
                     <Input
                         id="email"
-                        type="email"
-                        class="mt-1 block w-full"
                         v-model="form.email"
                         :class="{ 'border-red-500': form.errors.email }"
                         autocomplete="username"
+                        class="mt-1 block w-full"
+                        type="email"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.email" />
+                    <InputError :message="form.errors.email" class="mt-2"/>
                 </div>
 
                 <div>
@@ -109,28 +108,28 @@ function submitForm() {
 
                     <Input
                         id="date_of_birth"
-                        type="text"
-                        class="mt-1 block w-full"
                         v-model="form.date_of_birth"
-                        :class="{ 'border-red-500': form.errors.date_of_birth }"
-                        placeholder="yyyy-mm-dd"
                         v-mask="'####-##-##'"
+                        :class="{ 'border-red-500': form.errors.date_of_birth }"
                         autocomplete="date_of_birth"
+                        class="mt-1 block w-full"
+                        placeholder="yyyy-mm-dd"
+                        type="text"
                     />
 
-                    <InputError class="mt-2" :message="form.errors.date_of_birth" />
+                    <InputError :message="form.errors.date_of_birth" class="mt-2"/>
                 </div>
 
                 <div>
                     <Label for="gender">Gender</Label>
 
-                    <RadioGroup v-model="form.gender"  class="mt-2">
+                    <RadioGroup v-model="form.gender" class="mt-2">
                         <div class="flex items-center space-x-2">
-                            <RadioGroupItem id="male" value="male" />
+                            <RadioGroupItem id="male" value="male"/>
                             <Label for="male">Male</Label>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <RadioGroupItem id="female" value="female" />
+                            <RadioGroupItem id="female" value="female"/>
                             <Label for="female">Female</Label>
                         </div>
                     </RadioGroup>
@@ -141,9 +140,9 @@ function submitForm() {
                         Your email address is unverified.
                         <Link
                             :href="route('verification.send')"
-                            method="post"
                             as="button"
                             class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            method="post"
                         >
                             Click here to re-send the verification email.
                         </Link>
