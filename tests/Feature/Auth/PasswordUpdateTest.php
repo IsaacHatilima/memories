@@ -10,9 +10,9 @@ test('password can be updated', function () {
         ->actingAs($user)
         ->from('/profile')
         ->put('/password', [
-            'current_password' => 'password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'current_password' => 'Password1#',
+            'password' => 'Password12#',
+            'password_confirmation' => 'Password12#',
         ]);
 
     $response
@@ -30,8 +30,8 @@ test('correct password must be provided to update password', function () {
         ->from('/profile')
         ->put('/password', [
             'current_password' => 'wrong-password',
-            'password' => 'new-password',
-            'password_confirmation' => 'new-password',
+            'password' => 'Password12#',
+            'password_confirmation' => 'Password12#',
         ]);
 
     $response
