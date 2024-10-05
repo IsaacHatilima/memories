@@ -10,7 +10,7 @@ test('new users can register', function () {
     $response = $this->post('/register', [
         'first_name' => 'John',
         'last_name' => 'Doe',
-        'email' => 'test@example.com',
+        'email' => 'test@gmail.com',
         'password' => 'Password1#',
         'password_confirmation' => 'Password1#',
     ]);

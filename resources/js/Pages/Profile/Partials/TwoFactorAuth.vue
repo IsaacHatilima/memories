@@ -1,18 +1,13 @@
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { Button } from '@/Components/ui/button';
-import { useToast } from '@/Components/ui/toast/use-toast';
-import { useForm, usePage } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
+<script lang="ts" setup>
+import {onMounted, ref} from 'vue';
+import {Button} from '@/Components/ui/button';
+import {useToast} from '@/Components/ui/toast/use-toast';
+import {router, useForm, usePage} from '@inertiajs/vue3';
 import axios from 'axios';
-import {
-  PinInput,
-  PinInputGroup,
-  PinInputInput,
-} from '@/Components/ui/pin-input'
-import { Inertia } from '@inertiajs/inertia';
+import {PinInput, PinInputGroup, PinInputInput,} from '@/Components/ui/pin-input'
+import {Inertia} from '@inertiajs/inertia';
 
-const { toast } = useToast();
+const {toast} = useToast();
 const user = usePage().props.auth.user;
 const qrCode = ref<string | null>(null);
 const recoveryCodes = ref<string | null>(null);
@@ -24,7 +19,7 @@ const loading = ref(false);
 const form = useForm({});
 
 onMounted(() => {
-    if(user.two_factor_secret != '') {
+    if (user.two_factor_secret != '') {
         getTwoFactorQRCode();
         getTwoFactorRecoveryCodes();
     }
@@ -32,51 +27,51 @@ onMounted(() => {
 
 // Submit 2FA Confirmation code
 function submitOTP() {
-  loading.value = true;
-  try {
-    // Make POST request to the server
-    axios.post('/user/confirmed-two-factor-authentication', {'code' : otp.value.join('') })
-        .then(response => {
-            Inertia.visit(route('profile.edit'), {
-                only: ['user'],
+    loading.value = true;
+    try {
+        // Make POST request to the server
+        axios.post('/user/confirmed-two-factor-authentication', {'code': otp.value.join('')})
+            .then(response => {
+                Inertia.visit(route('profile.edit'), {
+                    only: ['user'],
+                })
+                toast({
+                    title: '2FA Verified',
+                    description: 'Your 2FA has been verified.',
+                    variant: 'success',
+                });
             })
-            toast({
-                title: '2FA Verified',
-                description: 'Your 2FA has been verified.',
-                variant: 'success',
+            .catch(error => {
+                toast({
+                    title: 'Warning',
+                    description: '2FA verification failed.',
+                    variant: 'warning',
+                });
             });
-        })
-        .catch(error => {
-            toast({
-                title: 'Warning',
-                description: '2FA verification failed.',
-                variant: 'warning',
-            });
-        });
 
 
-  } catch (error) {
-    // Handle error
-    console.error('Error submitting data:', error);
-    alert('Failed to submit data');
-  } finally {
-    loading.value = false; // Reset loading state
-  }
+    } catch (error) {
+        // Handle error
+        console.error('Error submitting data:', error);
+        alert('Failed to submit data');
+    } finally {
+        loading.value = false; // Reset loading state
+    }
 }
 
 // Fetch QR code from API
 function getTwoFactorQRCode() {
     axios.get('/user/two-factor-qr-code')
-    .then(response => {
-        qrCode.value = response.data.svg; // Update the ref's value
-    })
-    .catch(error => {
-        toast({
-            title: 'Warning',
-            description: 'Error fetching QR code.',
-            variant: 'warning',
+        .then(response => {
+            qrCode.value = response.data.svg; // Update the ref's value
+        })
+        .catch(error => {
+            toast({
+                title: 'Warning',
+                description: 'Error fetching QR code.',
+                variant: 'warning',
+            });
         });
-    });
 }
 
 function getTwoFactorRecoveryCodes() {
@@ -93,12 +88,12 @@ function getTwoFactorRecoveryCodes() {
         });
 }
 
-function refreshUser()
-{
+function refreshUser() {
     router.get(route('profile.edit'), {}, {
         preserveScroll: true,
     });
 }
+
 // Activate 2FA
 function activateTwoFA() {
     axios.post('/user/two-factor-authentication')
@@ -153,12 +148,12 @@ function toggleRecoveryCodesDownload() {
 }
 
 // Download Recovery Codes
-function downloadFile (recoveryCodes) {
+function downloadFile(recoveryCodes) {
     // Create the content for the file using the existing recoveryCodes
     const content = recoveryCodes.join('\n');
 
     // Create a Blob object with the content
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([content], {type: 'text/plain'});
 
     // Create a temporary anchor element to trigger the download
     const link = document.createElement('a');
@@ -166,22 +161,22 @@ function downloadFile (recoveryCodes) {
     link.download = 'recoveryCodes.txt';
 
     toggleRecoveryCodesDownload()
-    .then(response => {
-        link.click();
-        refreshUser();
-        toast({
-            title: '2FA Recovery Codes',
-            description: 'Codes downloaded successfully..',
-            variant: 'success',
+        .then(response => {
+            link.click();
+            refreshUser();
+            toast({
+                title: '2FA Recovery Codes',
+                description: 'Codes downloaded successfully..',
+                variant: 'success',
+            });
+        })
+        .catch(error => {
+            toast({
+                title: 'Warning',
+                description: 'Recovery codes download failed.',
+                variant: 'warning',
+            });
         });
-    })
-    .catch(error => {
-        toast({
-            title: 'Warning',
-            description: 'Recovery codes download failed.',
-            variant: 'warning',
-        });
-    });
     // Cleanup the URL object
     URL.revokeObjectURL(link.href);
 }
@@ -198,11 +193,13 @@ function downloadFile (recoveryCodes) {
             </p>
         </header>
 
-        <div v-if="user.two_factor_secret  && !user.two_factor_confirmed_at" class="mb-4 mt-4 text-red-400 font-medium text-sm">
+        <div v-if="user.two_factor_secret  && !user.two_factor_confirmed_at"
+             class="mb-4 mt-4 text-red-400 font-medium text-sm">
             Please finish configuring two factor authentication below.
         </div>
 
-        <div class="flex flex-col md:flex-row items-center justify-between"  v-if="user.two_factor_secret  && !user.two_factor_confirmed_at">
+        <div v-if="user.two_factor_secret  && !user.two_factor_confirmed_at"
+             class="flex flex-col md:flex-row items-center justify-between">
             <div v-if="qrCode" v-html="qrCode"></div>
             <div class="flex flex-1 flex-col mt-4 items-center ">
                 <div class="flex-1 ml-4 mb-4">
@@ -225,9 +222,9 @@ function downloadFile (recoveryCodes) {
 
         </div>
 
-        <div  v-if="!user.downloaded_code && user.two_factor_confirmed_at">
+        <div v-if="!user.downloaded_code && user.two_factor_confirmed_at">
             <ul class="mt-5 mb-4">
-                <li class="font-semibold" v-for="(item, index) in recoveryCodes" :key="index">
+                <li v-for="(item, index) in recoveryCodes" :key="index" class="font-semibold">
                     → {{ item }}
                 </li>
             </ul>
@@ -237,17 +234,20 @@ function downloadFile (recoveryCodes) {
             </Button>
         </div>
 
-        <div class="flex justify-end mt-2" v-if="user.two_factor_secret  && user.two_factor_confirmed_at">
-            <Button variant="destructive" @click="deactivateTwoFA" :disabled="loading">Deactivate 2FA </Button>
+        <div v-if="user.two_factor_secret  && user.two_factor_confirmed_at" class="flex justify-end mt-2">
+            <Button :disabled="loading" variant="destructive" @click="deactivateTwoFA">Deactivate 2FA</Button>
         </div>
 
-        <div class="flex justify-end mt-2" v-if="user.two_factor_secret  && !user.two_factor_confirmed_at">
-            <Button class="bg-yellow-500 hover:bg-yellow-600 mr-2" @click="deactivateTwoFA" :disabled="loading">Cancel 2FA Activation</Button>
-            <Button @click="submitOTP" :disabled="loading">Confirm</Button>
+        <div v-if="user.two_factor_secret  && !user.two_factor_confirmed_at" class="flex justify-end mt-2">
+            <Button :disabled="loading" class="bg-yellow-500 hover:bg-yellow-600 mr-2" @click="deactivateTwoFA">Cancel
+                2FA Activation
+            </Button>
+            <Button :disabled="loading" @click="submitOTP">Confirm</Button>
         </div>
 
-        <div class="flex items-center justify-end gap-4" v-if="!user.two_factor_secret  && !user.two_factor_confirmed_at">
-            <Button @click="activateTwoFA" :disabled="form.processing" class="w-40">Activate</Button>
+        <div v-if="!user.two_factor_secret  && !user.two_factor_confirmed_at"
+             class="flex items-center justify-end gap-4">
+            <Button :disabled="form.processing" class="w-40" @click="activateTwoFA">Activate</Button>
         </div>
     </section>
 </template>

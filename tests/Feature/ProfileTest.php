@@ -3,6 +3,7 @@
 use App\Models\Profile;
 use App\Models\User;
 
+
 test('profile page is displayed', function () {
     $user = User::factory()->create();
     Profile::factory()->create([
@@ -29,7 +30,7 @@ test('profile information can be updated', function () {
             'last_name' => 'Doe',
             'date_of_birth' => '1800-12-31',
             'gender' => 'male',
-            'email' => 'test@example.com',
+            'email' => 'test@gmail.com',
         ]);
 
     $response
@@ -40,7 +41,7 @@ test('profile information can be updated', function () {
     $profile->refresh();
 
     $this->assertSame('John', $profile->first_name);
-    $this->assertSame('test@example.com', $user->email);
+    $this->assertSame('test@gmail.com', $user->email);
     $this->assertNull($user->email_verified_at);
 });
 
