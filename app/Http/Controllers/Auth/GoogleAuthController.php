@@ -27,20 +27,22 @@ class GoogleAuthController extends Controller
             return redirect()->route('login')->with(['email' => 'Your Google account is missing names.']);
         }
 
-        $user = User::firstOrCreate(
-            ['email' => $googleUser->email],
-            [
+        $user = User::where('email', $googleUser->user['email'])->first();
+
+        if (! $user) {
+            $user = User::create([
                 'email' => $googleUser->email,
                 'password' => Str::random(),
                 'email_verified_at' => now(),
-            ]
-        );
+                'social_auth_sign_up' => true,
+            ]);
 
-        $user->profile()->updateOrCreate([
-            'user_id' => $user->id,
-            'first_name' => $googleUser->user['given_name'],
-            'last_name' => $googleUser->user['family_name']
-        ]);
+            $user->profile()->updateOrCreate([
+                'user_id' => $user->id,
+                'first_name' => $googleUser->user['given_name'],
+                'last_name' => $googleUser->user['family_name']
+            ]);
+        }
 
         Auth::login($user);
 

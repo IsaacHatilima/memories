@@ -6,19 +6,14 @@ import { Label } from '@/Components/ui/label'
 import { useForm } from 'laravel-precognition-vue-inertia';
 import { ref } from 'vue';
 import { useToast } from '@/Components/ui/toast/use-toast'
+import {router, usePage} from "@inertiajs/vue3";
 
 const { toast } = useToast();
 
+const user = usePage().props.auth.user;
 const passwordInput = ref<HTMLInputElement | null>(null);
 const currentPasswordInput = ref<HTMLInputElement | null>(null);
 
-/*
-const form = useForm({
-    current_password: '',
-    password: '',
-    password_confirmation: '',
-});
-*/
 
 const form = useForm('put', route('password.update'), {
     current_password: '',
@@ -29,11 +24,16 @@ const form = useForm('put', route('password.update'), {
 const submit = () => form.submit({
     preserveScroll: true,
     onSuccess: () => {
+        router.get(route('profile.edit'), {}, {
+            preserveScroll: true,
+        });
+
         toast({
             title: 'Password Updated',
             description: 'Your password has been successfully updated.',
             variant: 'success',
         });
+
         form.reset();
     },
     onError: () => {
@@ -43,7 +43,6 @@ const submit = () => form.submit({
         }
         if (form.errors.current_password) {
             form.reset('current_password');
-            // currentPasswordInput.value?.focus();
         }
     },
 });
@@ -56,12 +55,12 @@ const submit = () => form.submit({
             <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
 
             <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay secure.
+                Ensure to pick a strong password to stay secure.
             </p>
         </header>
 
         <form @submit.prevent="submit" class="mt-6 space-y-6">
-            <div>
+            <div v-if="!user.social_auth_sign_up">
                 <Label for="current_password">Current Password</Label>
 
                 <Input

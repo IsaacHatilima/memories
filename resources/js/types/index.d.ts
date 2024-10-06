@@ -5,6 +5,7 @@ export interface User {
     name: string;
     email: string;
     downloaded_code: boolean;
+    social_auth_sign_up: boolean;
     email_verified_at?: string;
     two_factor_secret?: string;
     two_factor_confirmed_at?: string;
