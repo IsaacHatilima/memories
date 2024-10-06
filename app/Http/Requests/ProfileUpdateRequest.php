@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Validations\NewEmailValidation;
-use App\Validations\NewPasswordValidation;
 use App\Validations\RequiredInputValidation;
 use App\Validations\UpdateWithEmailValidation;
 use Illuminate\Contracts\Validation\Rule;
@@ -20,7 +19,6 @@ class ProfileUpdateRequest extends FormRequest
     {
         return array_merge(
             NewEmailValidation::rules(),
-            NewPasswordValidation::rules(),
             RequiredInputValidation::rules('first_name'),
             RequiredInputValidation::rules('last_name'),
             UpdateWithEmailValidation::rules($this->user()->id),
