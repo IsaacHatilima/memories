@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
+use App\Validations\NewEmailValidation;
+use App\Validations\NewPasswordValidation;
+use App\Validations\RequiredInputValidation;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,35 +25,12 @@ class RegisterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email:rfc,dns',
-                'max:255',
-                'unique:'.User::class
-            ],
-            'password' => [
-                'required',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%@?]).*$/',
-                'min:8',
-                'required_with:password_confirmation',
-                'same:password_confirmation',
-            ],
-            'password_confirmation' => [
-                'required',
-                'same:password',
-            ],
-            'first_name' => [
-                'required',
-                'string'
-            ],
-            'last_name' => [
-                'required',
-                'string'
-            ],
-        ];
+        return array_merge(
+            NewEmailValidation::rules(),
+            NewPasswordValidation::rules(),
+            RequiredInputValidation::rules('first_name'),
+            RequiredInputValidation::rules('last_name'),
+        );
     }
 
     public function messages(): array
@@ -76,8 +55,8 @@ class RegisterRequest extends FormRequest
 
             'first_name.required' => 'First Name is required.',
             'first_name.string' => 'First Name MUST be a string.',
-            'last_name.required' => 'First Name is required.',
-            'last_name.string' => 'First Name MUST be a string.',
+            'last_name.required' => 'Last Name is required.',
+            'last_name.string' => 'Last Name MUST be a string.',
         ];
     }
 }

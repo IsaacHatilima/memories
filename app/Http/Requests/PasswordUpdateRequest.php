@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Validations\ConfirmPasswordValidation;
+use App\Validations\NewPasswordValidation;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordUpdateRequest extends FormRequest
@@ -17,27 +20,14 @@ class PasswordUpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
-        return [
-            'current_password' => [
-                'required',
-                'current_password',
-            ],
-            'password' => [
-                'required',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%@?]).*$/',
-                'min:8',
-                'required_with:password_confirmation',
-                'same:password_confirmation',
-            ],
-            'password_confirmation' => [
-                'required',
-                'same:password',
-            ],
-        ];
+        return array_merge(
+            ConfirmPasswordValidation::rules(),
+            NewPasswordValidation::rules(),
+        );
     }
 
     public function messages(): array
