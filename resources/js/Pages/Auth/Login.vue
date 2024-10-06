@@ -26,6 +26,11 @@ const submit = () => {
         },
     });
 };
+
+function handleGoogleLogin()
+{
+    window.location.href = route('google.redirect');
+}
 </script>
 
 <template>
@@ -100,7 +105,7 @@ const submit = () => {
             </form>
         </CardContent>
         <CardFooter>
-            <Button class="w-full bg-white border-2 border-slate-700 text-black">
+            <Button @click="handleGoogleLogin()" class="w-full bg-white border-2 border-slate-700 text-black hover:text-white">
                 Log in with Google
             </Button>
         </CardFooter>

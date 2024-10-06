@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -14,6 +15,12 @@ use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle'])
+        ->name('google.redirect');
+
+    Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])
+        ->name('google.callback');
+
     Route::get('/', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
