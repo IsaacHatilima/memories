@@ -10,7 +10,7 @@ import { ScrollArea } from '@/Components/ui/scroll-area';
     <div class="flex flex-col h-full max-h-screen gap-2">
       <div class="flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
         <a href="/" class="flex items-center gap-2 font-semibold">
-          <span>Acme Inc</span>
+          <span>Memories</span>
         </a>
       </div>
       <div class="flex-1 overflow-hidden">

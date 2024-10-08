@@ -11,13 +11,14 @@ import {ScrollArea} from '@/Components/ui/scroll-area'
         <SideNav/>
         <div class="flex flex-col">
             <TopNav/>
-            <ScrollArea class="h-screen p-4">
-                <main class="flex flex-col flex-1 gap-4 p-4 ">
-                    <div class="flex flex-col flex-1">
+            <div class="flex flex-col flex-1 overflow-hidden">
+                <ScrollArea class="w-full h-[calc(100vh-5vh)] overflow-y-auto p-4">
+                    <main class="flex flex-col flex-1 gap-4">
                         <slot/>
-                    </div>
-                </main>
-            </ScrollArea>
+                    </main>
+                </ScrollArea>
+            </div>
         </div>
     </div>
+
 </template>
