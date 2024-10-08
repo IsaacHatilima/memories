@@ -110,9 +110,10 @@ const handleUpdate = (albumId) => {
 
 const handleDelete = (albumId) => {
     const { url } = usePage();
+    console.log(url)
     form.delete(route('albums.destroy', albumId), {
         onSuccess: () => {
-            if(url === route('albums.index')) {
+            if(url === '/albums') {
                 refreshAlbums('albums.index');
             } else {
                 refreshAlbums('albums.trashed');
@@ -182,7 +183,7 @@ const handleRestore = (albumId) => {
     <Head title="Albums" />
 
     <AuthenticatedLayout>
-        <div>
+        <div class="pr-4">
             <Dialog>
                 <div class="flex justify-end">
                     <DialogTrigger as-child>
@@ -257,14 +258,19 @@ const handleRestore = (albumId) => {
                 <div v-else class="grid md:grid-cols-4 gap-4">
                     <div v-for="album in filteredAlbums" :key="album.public_id">
                         <Card class="h-40">
-                            <CardHeader class="flex flex-row items-baseline justify-between">
-                                <CardTitle>{{ album.name }}</CardTitle>
-                                <span class="text-gray-400 text-sm">Created: {{ formatDate(album.created_at)}}</span>
-                            </CardHeader>
-                            <CardContent class="flex flex-col">
-                                <div class="h-12">{{ album.description }}</div>
-                                <div class="flex justify-end">
-                                    <div class="w-24 flex" :class="!album.deleted_at ? 'justify-between' : 'justify-end'">
+
+
+                            <CardContent class="flex row -mx-6">
+                                <img src="https://picsum.photos/200" alt="Image" height="100" width="158" class="rounded-l-md">
+                                <div class="w-full pt-4">
+                                    <div class="flex flex-col items-baseline justify-between px-2">
+                                        <Label class="font-bold text-md">{{ album.name }}</Label>
+                                        <span class="text-sm text-gray-400">Created: {{ formatDate(album.created_at) }}</span>
+                                    </div>
+                                    <div class="flex flex-col justify-end px-2 h-20">
+
+                                        <div class="flex justify-end">
+                                            <div class="w-24 flex" :class="!album.deleted_at ? 'justify-between' : 'justify-end'">
                                         <span class="text-sky-600" v-if="!album.deleted_at">
                                             <Dialog>
                                                 <div class="flex justify-end">
@@ -319,7 +325,7 @@ const handleRestore = (albumId) => {
                                             </Dialog>
                                         </span>
 
-                                        <span class="text-red-600">
+                                                <span class="text-red-600">
                                           <AlertDialog>
                                             <AlertDialogTrigger>Delete</AlertDialogTrigger>
                                             <AlertDialogContent>
@@ -338,8 +344,12 @@ const handleRestore = (albumId) => {
                                             </AlertDialogContent>
                                           </AlertDialog>
                                         </span>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
+
                             </CardContent>
                         </Card>
                     </div>
