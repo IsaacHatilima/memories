@@ -9,7 +9,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/Components/ui/dialog';
+} from '@/components/ui/dialog';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -21,18 +21,26 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { Button } from '@/Components/ui/button'
-import {Label} from "@/Components/ui/label";
-import {Input} from "@/Components/ui/input";
-import InputError from "@/Components/InputError.vue";
-import {CardContent, Card, CardHeader, CardTitle} from "@/Components/ui/card";
-import dayjs from 'dayjs';
-import {useToast} from '@/Components/ui/toast/use-toast';
+import {Button} from '@/components/ui/button'
+import {Label} from "@/components/ui/label";
+import {Input} from "@/components/ui/input";
+import InputError from "@/components/InputError.vue";
+import {Card, CardContent} from "@/components/ui/card";
+import {useToast} from '@/components/ui/toast/use-toast';
 import {computed, ref} from 'vue';
 
+interface Album {
+    public_id: string;
+    name: string;
+    description: string;
+    created_at: string;
+    deleted_at?: string;
+}
+
 const {toast} = useToast();
-let albums = usePage().props.albums;
+let albums = usePage().props.albums as Album[];
 const searchQuery = ref('');
+const selectedAlbum = ref({ name: '', description: '' });
 
 const filteredAlbums = computed(() => {
     return albums.filter(album =>
@@ -40,16 +48,16 @@ const filteredAlbums = computed(() => {
     );
 });
 
-const formatDate = (date) => {
-    return dayjs(date).format('YYYY-MM-DD HH:mm');
-};
+function formatDate(date: string): string {
+    return new Date(date).toLocaleDateString();
+}
 
 const form = useForm({
     name: '',
     description: ''
 });
 
-const refreshAlbums = (routeName) => {
+const refreshAlbums = (routeName: string) => {
     router.visit(route(routeName), {
         preserveScroll: true,
         only: ['albums'],
@@ -78,12 +86,11 @@ const handleSubmit = () => {
     });
 };
 
-const selectedAlbum = ref({ name: '', description: '' });
-
-const selectAlbum = (album) => {
+const selectAlbum = (album: Album) => {
     selectedAlbum.value = { ...album };
 };
-const handleUpdate = (albumId) => {
+
+const handleUpdate = (albumId: string) => {
     form.name = selectedAlbum.value.name;
     form.description = selectedAlbum.value.description;
 
@@ -107,8 +114,7 @@ const handleUpdate = (albumId) => {
     });
 };
 
-
-const handleDelete = (albumId) => {
+const handleDelete = (albumId: string) => {
     const { url } = usePage();
     console.log(url)
     form.delete(route('albums.destroy', albumId), {
@@ -135,7 +141,7 @@ const handleDelete = (albumId) => {
     });
 };
 
-const handleArchive = (albumId) => {
+const handleArchive = (albumId: string) => {
     form.patch(route('albums.archive', albumId), {
         onSuccess: () => {
             refreshAlbums('albums.index');
@@ -156,7 +162,7 @@ const handleArchive = (albumId) => {
     });
 };
 
-const handleRestore = (albumId) => {
+const handleRestore = (albumId: string) => {
     form.patch(route('albums.restore', albumId), {
         onSuccess: () => {
             refreshAlbums('albums.trashed');

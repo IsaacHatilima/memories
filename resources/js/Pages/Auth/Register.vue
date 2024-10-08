@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import { Button } from '@/Components/ui/button'
-import { Input } from '@/Components/ui/input'
-import {CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/Components/ui/card";
-import { Label } from '@/Components/ui/label'
-import { Checkbox } from '@/Components/ui/checkbox'
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
+import { Label } from '@/components/ui/label'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({

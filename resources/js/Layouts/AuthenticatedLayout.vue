@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import SideNav from "@/Components/sidenav/SideNav.vue";
-import TopNav from "@/Components/TopNav.vue";
-import {Toaster} from '@/Components/ui/toast'
-import {ScrollArea} from '@/Components/ui/scroll-area'
+import SideNav from "@/components/sidenav/SideNav.vue";
+import TopNav from "@/components/TopNav.vue";
+import {Toaster} from '@/components/ui/toast'
+import {ScrollArea} from '@/components/ui/scroll-area'
 </script>
 
 <template>

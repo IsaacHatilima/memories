@@ -8,13 +8,13 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger
-} from "@/Components/ui/dropdown-menu";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/Components/ui/card";
-import {Button} from "@/Components/ui/button";
-import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@/Components/ui/sheet";
-import {Input} from "@/Components/ui/input";
+} from "@/components/ui/dropdown-menu";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Button} from "@/components/ui/button";
+import {Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
+import {Input} from "@/components/ui/input";
 import {Link} from '@inertiajs/vue3';
-import {ScrollArea} from '@/Components/ui/scroll-area';
+import {ScrollArea} from '@/components/ui/scroll-area';
 import SideNavContent from "./sidenav/SideNavContent.vue";
 </script>
 

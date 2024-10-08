@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/Components/ui/card";
-import { Button } from "@/Components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import SideNavContent from "./SideNavContent.vue";
-import { ScrollArea } from '@/Components/ui/scroll-area';
+import { ScrollArea } from '@/components/ui/scroll-area';
 </script>
 
 <template>

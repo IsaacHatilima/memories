@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Button } from '@/Components/ui/button'
-import {CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/Components/ui/card";
+import { Button } from '@/components/ui/button'
+import {CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps<{

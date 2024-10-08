@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import Modal from '@/Components/Modal.vue';
+import Modal from '@/components/Modal.vue';
 
 
-import { Button } from '@/Components/ui/button'
-import { Input } from '@/Components/ui/input'
-import {CardContent} from "@/Components/ui/card";
-import { Label } from '@/Components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {CardContent} from "@/components/ui/card";
+import { Label } from '@/components/ui/label'
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
-import InputError from "@/Components/InputError.vue";
+import InputError from "@/components/InputError.vue";
 
 const confirmingUserDeletion = ref(false);
 

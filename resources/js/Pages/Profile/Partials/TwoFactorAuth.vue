@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import {onMounted, ref} from 'vue';
-import {Button} from '@/Components/ui/button';
-import {useToast} from '@/Components/ui/toast/use-toast';
+import {Button} from '@/components/ui/button';
+import {useToast} from '@/components/ui/toast/use-toast';
 import {router, useForm, usePage} from '@inertiajs/vue3';
 import axios from 'axios';
-import {PinInput, PinInputGroup, PinInputInput,} from '@/Components/ui/pin-input'
+import {PinInput, PinInputGroup, PinInputInput,} from '@/components/ui/pin-input'
 import {Inertia} from '@inertiajs/inertia';
 
 const {toast} = useToast();

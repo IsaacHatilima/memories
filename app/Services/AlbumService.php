@@ -25,7 +25,7 @@ class AlbumService
 
     public function updateAlbum($request,$album)
     {
-        $album->name = $request->name;
+        $album->name = strtoupper($request->name);
         $album->description = $request->description;
         return $album->save();
     }
