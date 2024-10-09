@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import {Head, usePage} from '@inertiajs/vue3';
 import {Button} from "@/components/ui/button";
+import {onMounted} from "vue";
+const user = usePage().props.auth.user;
+
+onMounted(() => {
+    console.log(user.album);
+});
 
 </script>
 

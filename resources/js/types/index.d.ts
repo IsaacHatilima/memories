@@ -10,6 +10,7 @@ export interface User {
     two_factor_secret?: string;
     two_factor_confirmed_at?: string;
     profile: Profile;
+    album: Album;
 }
 
 export interface Profile {
@@ -17,6 +18,14 @@ export interface Profile {
     last_name: string;
     date_of_birth: string;
     gender: string;
+}
+
+export interface Album {
+    public_id: string;
+    name: string;
+    description: string;
+    created_at: string;
+    deleted_at?: string;
 }
 
 

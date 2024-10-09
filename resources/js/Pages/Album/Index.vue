@@ -29,13 +29,7 @@ import {Card, CardContent} from "@/components/ui/card";
 import {useToast} from '@/components/ui/toast/use-toast';
 import {computed, ref} from 'vue';
 
-interface Album {
-    public_id: string;
-    name: string;
-    description: string;
-    created_at: string;
-    deleted_at?: string;
-}
+import { Album } from '@/types'
 
 const {toast} = useToast();
 let albums = usePage().props.albums as Album[];
@@ -261,7 +255,7 @@ const handleRestore = (albumId: string) => {
                 <div v-if="filteredAlbums.length === 0" class="text-center text-gray-500">
                     No Album found
                 </div>
-                <div v-else class="grid md:grid-cols-4 gap-4">
+                <div v-else class="grid md:grid-cols-3 gap-4">
                     <div v-for="album in filteredAlbums" :key="album.public_id">
                         <Card class="h-40">
 
@@ -270,7 +264,7 @@ const handleRestore = (albumId: string) => {
                                 <img src="https://picsum.photos/200" alt="Image" height="100" width="158" class="rounded-l-md">
                                 <div class="w-full pt-4">
                                     <div class="flex flex-col items-baseline justify-between px-2">
-                                        <Label class="font-bold text-md">{{ album.name }}</Label>
+                                        <Label class="font-bold">{{ album.name }}</Label>
                                         <span class="text-sm text-gray-400">Created: {{ formatDate(album.created_at) }}</span>
                                     </div>
                                     <div class="flex flex-col justify-end px-2 h-20">

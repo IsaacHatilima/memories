@@ -26,7 +26,7 @@ class AlbumController extends Controller
 
         $albums = Album::all();
 
-        return Inertia::render('Albums', ['albums' => $albums]);
+        return Inertia::render('Album/Index', ['albums' => $albums]);
     }
 
     public function trashed()
@@ -35,7 +35,7 @@ class AlbumController extends Controller
 
         $trashedAlbums = Album::onlyTrashed()->get();
 
-        return Inertia::render('Albums', ['albums' => $trashedAlbums]);
+        return Inertia::render('Album/Index', ['albums' => $trashedAlbums]);
     }
 
     public function store(AlbumRequest $request)
