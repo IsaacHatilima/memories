@@ -28,9 +28,6 @@ class ConfirmPasswordRequest extends FormRequest
 
     public function messages(): array
     {
-        return [
-            'required' => 'Password is required.',
-            'current_password' => 'Password is incorrect.',
-        ];
+        return ConfirmPasswordValidation::messages();
     }
 }

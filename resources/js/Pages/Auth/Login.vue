@@ -52,7 +52,7 @@ function handleGoogleLogin()
                            :class="{ 'border-red-500': form.errors.email }"
                            v-model="form.email"
                            autofocus
-                           autocomplete="username"/>
+                           autocomplete="email"/>
 
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>

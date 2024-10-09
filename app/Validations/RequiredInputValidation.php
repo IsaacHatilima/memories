@@ -4,14 +4,31 @@ namespace App\Validations;
 
 class RequiredInputValidation
 {
-    public static function rules(string $attribute): array
+    private string $attribute;
+
+    public function __construct(string $attribute)
+    {
+        $this->attribute = $attribute;
+    }
+
+    public function rules(): array
     {
         return [
-            $attribute => [
+            $this->attribute => [
                 'required',
                 'string',
                 'min:2'
             ]
+        ];
+    }
+
+    public function messages(): array
+    {
+        $formattedAttribute = ucwords(str_replace('_', ' ', $this->attribute));
+
+        return [
+            $this->attribute.'.required' => $formattedAttribute.' is required.',
+            $this->attribute.'.string' => $formattedAttribute.' MUST be a string.',
         ];
     }
 }

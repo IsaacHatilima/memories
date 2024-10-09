@@ -13,4 +13,12 @@ class ConfirmPasswordValidation
             ]
         ];
     }
+
+    public static function messages(): array
+    {
+        return [
+            'password.required' => 'Password is required.',
+            'password.current_password' => 'Password is not correct.'
+        ];
+    }
 }
