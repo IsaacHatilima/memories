@@ -132,10 +132,14 @@ function submitForm() {
                             <RadioGroupItem id="female" value="female"/>
                             <Label for="female">Female</Label>
                         </div>
+                        <div class="flex items-center space-x-2">
+                            <RadioGroupItem id="diverse" value="diverse"/>
+                            <Label for="diverse">Diverse</Label>
+                        </div>
                     </RadioGroup>
                 </div>
 
-                <div v-if="mustVerifyEmail && user.email_verified_at === null">
+                <div v-if="mustVerifyEmail && user.email_verified_at == null">
                     <p class="text-sm mt-2 text-gray-800">
                         Your email address is unverified.
                         <Link

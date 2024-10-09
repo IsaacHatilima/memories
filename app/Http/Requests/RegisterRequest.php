@@ -28,35 +28,28 @@ class RegisterRequest extends FormRequest
         return array_merge(
             NewEmailValidation::rules(),
             NewPasswordValidation::rules(),
-            RequiredInputValidation::rules('first_name'),
-            RequiredInputValidation::rules('last_name'),
+            (new RequiredInputValidation('first_name'))->rules(),
+            (new RequiredInputValidation('last_name'))->rules()
         );
     }
 
     public function messages(): array
     {
-        return [
-            'email.required' => 'Email is required.',
-            'email.string' => 'Email MUST be a string.',
-            'email.lowercase' => 'Email MUST be lowercase letters.',
-            'email.email' => 'Invalid email format.',
-            'email.max' => 'Email is too long.',
-            'email.unique' => 'Email is already in use.',
+        return array_merge(
+            NewEmailValidation::messages(),
+            (new RequiredInputValidation('first_name'))->messages(),
+            (new RequiredInputValidation('last_name'))->messages(),
+            [
+                'password.required' => 'Password is required.',
+                'password.regex' => 'Password must contain at least one upper and lower case letter, one number, and one special character (!, $, #, %, @, ?).',
+                'password.min' => 'Password must be at least 8 characters long.',
+                'password.required_with' => 'Password confirmation is required.',
+                'password.same' => 'Password and confirmation must match.',
 
+                'password_confirmation.required' => 'Please confirm your password.',
+                'password_confirmation.same' => 'Password confirmation does not match the new password.',
 
-            'password.required' => 'Password is required.',
-            'password.regex' => 'Password must contain at least one upper and lower case letter, one number, and one special character (!, $, #, %, @, ?).',
-            'password.min' => 'Password must be at least 8 characters long.',
-            'password.required_with' => 'Password confirmation is required.',
-            'password.same' => 'Password and confirmation must match.',
-
-            'password_confirmation.required' => 'Please confirm your password.',
-            'password_confirmation.same' => 'Password confirmation does not match the new password.',
-
-            'first_name.required' => 'First Name is required.',
-            'first_name.string' => 'First Name MUST be a string.',
-            'last_name.required' => 'Last Name is required.',
-            'last_name.string' => 'Last Name MUST be a string.',
-        ];
+            ]
+        );
     }
 }
