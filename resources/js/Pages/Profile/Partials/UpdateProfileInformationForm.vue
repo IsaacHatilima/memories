@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import InputError from '@/Components/InputError.vue';
-import {Button} from '@/Components/ui/button'
-import {Input} from '@/Components/ui/input'
-import {useToast} from '@/Components/ui/toast/use-toast'
-import {Label} from '@/Components/ui/label'
+import InputError from '@/components/InputError.vue';
+import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
+import {useToast} from '@/components/ui/toast/use-toast'
+import {Label} from '@/components/ui/label'
 import {Link, router, useForm, usePage} from '@inertiajs/vue3';
-import {RadioGroup, RadioGroupItem} from '@/Components/ui/radio-group';
+import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
 
 const {toast} = useToast();
 

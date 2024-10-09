@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import ApplicationLogo from '@/components/ApplicationLogo.vue';
 import { Link } from '@inertiajs/vue3';
 import {
     Card,
@@ -8,7 +8,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from '@/Components/ui/card'
+} from '@/components/ui/card'
 </script>
 
 <template>
@@ -22,8 +22,8 @@ import {
 
         <Card class="w-full sm:max-w-md mt-6 px-6 py-4 overflow-hidden sm:rounded-lg">
             <CardHeader class="flex items-center">
-                <CardTitle>Peer Banking</CardTitle>
-                <CardDescription>Extra cash with friends and family.</CardDescription>
+                <CardTitle>Memories</CardTitle>
+                <CardDescription>Photo albums with friends.</CardDescription>
             </CardHeader>
             <slot />
         </Card>

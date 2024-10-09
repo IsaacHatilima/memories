@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import SideNav from "@/Components/sidenav/SideNav.vue";
-import TopNav from "@/Components/TopNav.vue";
-import {Toaster} from '@/Components/ui/toast'
-import {ScrollArea} from '@/Components/ui/scroll-area'
+import SideNav from "@/components/sidenav/SideNav.vue";
+import TopNav from "@/components/TopNav.vue";
+import {Toaster} from '@/components/ui/toast'
+import {ScrollArea} from '@/components/ui/scroll-area'
 </script>
 
 <template>
@@ -11,13 +11,14 @@ import {ScrollArea} from '@/Components/ui/scroll-area'
         <SideNav/>
         <div class="flex flex-col">
             <TopNav/>
-            <ScrollArea class="h-screen p-4">
-                <main class="flex flex-col flex-1 gap-4 p-4 ">
-                    <div class="flex flex-col flex-1">
+            <div class="flex flex-col flex-1 overflow-hidden">
+                <ScrollArea class="w-full h-[calc(100vh-5vh)] overflow-y-auto p-4">
+                    <main class="flex flex-col flex-1 gap-4">
                         <slot/>
-                    </div>
-                </main>
-            </ScrollArea>
+                    </main>
+                </ScrollArea>
+            </div>
         </div>
     </div>
+
 </template>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import InputError from '@/Components/InputError.vue';
-import { Button } from '@/Components/ui/button'
-import { Input } from '@/Components/ui/input'
-import { Label } from '@/Components/ui/label'
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { useForm } from 'laravel-precognition-vue-inertia';
 import { ref } from 'vue';
-import { useToast } from '@/Components/ui/toast/use-toast'
+import { useToast } from '@/components/ui/toast/use-toast'
 import {router, usePage} from "@inertiajs/vue3";
 
 const { toast } = useToast();

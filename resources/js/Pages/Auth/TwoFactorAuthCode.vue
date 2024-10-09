@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import { Button } from '@/Components/ui/button';
-import {CardContent} from "@/Components/ui/card";
-import { useToast } from '@/Components/ui/toast/use-toast';
+import { Button } from '@/components/ui/button';
+import {CardContent} from "@/components/ui/card";
+import { useToast } from '@/components/ui/toast/use-toast';
 import { Head } from '@inertiajs/vue3';
-import {PinInput, PinInputGroup, PinInputInput} from "@/Components/ui/pin-input";
+import {PinInput, PinInputGroup, PinInputInput} from "@/components/ui/pin-input";
 import axios from "axios";
 import {ref} from "vue";
 

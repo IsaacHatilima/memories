@@ -22,10 +22,12 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "@radix-ui/react-accordion": "^1.2.0",
+        "@tanstack/vue-table": "^8.20.5",
         "@vueform/plugin-mask": "^1.0.7",
         "@vueuse/core": "^11.0.3",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
+        "dayjs": "^1.11.13",
         "laravel-precognition-vue": "^0.5.9",
         "laravel-precognition-vue-inertia": "^0.5.9",
         "lucide-vue-next": "^0.441.0",

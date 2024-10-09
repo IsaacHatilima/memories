@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import {Button} from "@/Components/ui/button";
+import {Button} from "@/components/ui/button";
 
 </script>
 
