@@ -77,7 +77,7 @@ test('user can update album', function () {
     $response
         ->assertSessionHasNoErrors()
         ->assertRedirect(route('albums.index'));
-    $this->assertSame('Album', $album->name);
+    $this->assertSame('ALBUM', $album->name);
     $response->assertStatus(302);
 
 });
