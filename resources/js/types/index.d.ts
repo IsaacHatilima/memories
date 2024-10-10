@@ -12,6 +12,15 @@ export interface User {
     profile: Profile;
 }
 
+export interface Album {
+    public_id: string;
+    name: string;
+    description: string;
+    created_at: string;
+    deleted_at?: string;
+    user: User;
+}
+
 export interface Profile {
     first_name: string;
     last_name: string;
@@ -19,6 +28,11 @@ export interface Profile {
     gender: string;
 }
 
+
+export interface Member {
+    public_id: string;
+    user: User;
+}
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {

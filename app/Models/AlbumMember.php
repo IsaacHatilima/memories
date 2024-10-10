@@ -6,28 +6,36 @@ use App\Traits\ModelHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Album extends Model
+class AlbumMember extends Model
 {
-    use SoftDeletes, HasFactory, ModelHelpers;
+    use HasFactory;
+    use ModelHelpers;
 
     protected $guarded = [
         'id',
         'public_id',
     ];
 
-    protected $hidden = ['id', 'user_id'];
-
+    protected $hidden = [
+        'id',
+        'user_id',
+        'album_id',
+        'created_at',
+    ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function members(): HasMany
+    public function album(): BelongsTo
     {
-        return $this->hasMany(AlbumMember::class)->with('user');
+        return $this->belongsTo(Album::class);
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

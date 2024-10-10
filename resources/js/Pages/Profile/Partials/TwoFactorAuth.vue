@@ -13,7 +13,6 @@ const qrCode = ref<string | null>(null);
 const recoveryCodes = ref<string[]>([]);
 const otp = ref<string[]>([])
 const loading = ref(false);
-//const handleComplete = (e: string[]) => alert(e.join(''))
 
 // Form handling
 const form = useForm({});

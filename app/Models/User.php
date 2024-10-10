@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\ModelHelpers;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,11 +37,17 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
-    protected $with = ['profile'];
+
+    protected $with = ['profile', 'album'];
 
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function album():HasMany
+    {
+        return $this->hasMany(Album::class);
     }
 
     /**
