@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\AlbumMemberController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/albums', [AlbumController::class, 'index'])
         ->name('albums.index');
+    Route::get('/albums/{album}', [AlbumController::class, 'show'])
+        ->name('albums.show');
     Route::get('/albums/archived', [AlbumController::class, 'trashed'])
         ->name('albums.trashed');
     Route::post('/albums', [AlbumController::class, 'store'])
@@ -36,6 +39,10 @@ Route::middleware('auth')->group(function () {
         ->name('albums.restore');
     Route::patch('/albums/{album}', [AlbumController::class, 'update'])
         ->name('albums.update');
+
+
+    Route::post('/album-members', [AlbumMemberController::class, 'store'])
+        ->name('album.members.store');
 });
 
 require __DIR__.'/auth.php';

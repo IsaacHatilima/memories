@@ -29,6 +29,19 @@ class AlbumController extends Controller
         return Inertia::render('Album/Index', ['albums' => $albums]);
     }
 
+    public function show(Album $album)
+    {
+        $this->authorize('viewAny', Album::class);
+
+        $album->load('user', 'members');
+
+
+        return Inertia::render('Album/AlbumDetails', [
+            'album' => $album,
+            'members' => $album->members
+        ]);
+    }
+
     public function trashed()
     {
         $this->authorize('view', Album::class);

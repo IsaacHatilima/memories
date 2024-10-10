@@ -10,7 +10,15 @@ export interface User {
     two_factor_secret?: string;
     two_factor_confirmed_at?: string;
     profile: Profile;
-    album: Album;
+}
+
+export interface Album {
+    public_id: string;
+    name: string;
+    description: string;
+    created_at: string;
+    deleted_at?: string;
+    user: User;
 }
 
 export interface Profile {
@@ -20,14 +28,11 @@ export interface Profile {
     gender: string;
 }
 
-export interface Album {
-    public_id: string;
-    name: string;
-    description: string;
-    created_at: string;
-    deleted_at?: string;
-}
 
+export interface Member {
+    public_id: string;
+    user: User;
+}
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {

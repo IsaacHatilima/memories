@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head, router, useForm, usePage} from "@inertiajs/vue3";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {
     Dialog,
@@ -28,7 +28,6 @@ import InputError from "@/components/InputError.vue";
 import {Card, CardContent} from "@/components/ui/card";
 import {useToast} from '@/components/ui/toast/use-toast';
 import {computed, ref} from 'vue';
-
 import { Album } from '@/types'
 
 const {toast} = useToast();
@@ -264,7 +263,11 @@ const handleRestore = (albumId: string) => {
                                 <img src="https://picsum.photos/200" alt="Image" height="100" width="158" class="rounded-l-md">
                                 <div class="w-full pt-4">
                                     <div class="flex flex-col items-baseline justify-between px-2">
-                                        <Label class="font-bold">{{ album.name }}</Label>
+                                        <Link
+                                            :href="route('albums.show', album.public_id)"
+                                            class="font-bold text-sky-500 underline">
+                                            {{ album.name }}
+                                        </Link>
                                         <span class="text-sm text-gray-400">Created: {{ formatDate(album.created_at) }}</span>
                                     </div>
                                     <div class="flex flex-col justify-end px-2 h-20">
